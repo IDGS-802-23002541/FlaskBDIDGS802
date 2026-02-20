@@ -2,9 +2,9 @@ from wtforms import Form
 from wtforms import StringField, IntegerField, validators
 
 class UserForm(Form):
-    id=IntegerField('Matricula',[
+    id=StringField('id', [
         validators.DataRequired(message="El campo es requerido"),
-        validators.NumberRange(min=100, max=1000, message="Ingrese un valor válido")
+        validators.length(min=3, max=10, message="Ingrese un nombre válido")
     ])
     nombre=StringField('Nombre', [
         validators.DataRequired(message="El campo es requerido"),
@@ -13,9 +13,6 @@ class UserForm(Form):
     apaterno=StringField('Apaterno', [
         validators.DataRequired(message="El campo es requerido")
     ])
-    amaterno=StringField('Amaterno', [
-        validators.DataRequired(message="El campo es requerido")
-    ])
-    correo=StringField('Correo', [
+    email=StringField('Email', [
         validators.Email(message="Ingrese un correo válido")
     ])
