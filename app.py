@@ -3,6 +3,7 @@ from flask import flash
 from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig
 from flask import g
+from flask_migrate import Migrate
 import forms
 
 from models import db
@@ -12,6 +13,7 @@ app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
 csrf=CSRFProtect()
+migrate=Migrate(app, db)
 
 @app.route("/", methods=['POST', 'GET'])
 @app.route("/index")
@@ -64,6 +66,24 @@ def modificar():
 		db.session.commit()
 		return redirect(url_for('index'))
 	return render_template("modificar.html", form=alumno_class)
+
+@app.route('/eliminar', methods=['GET', 'POST'])
+def eliminar():
+	alumno_class=forms.UserForm(request.form)
+	if request.method=='GET':
+		id=request.args.get('id')
+		alumn1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
+		alumno_class.id.data=request.args.get('id')
+		alumno_class.nombre.data=alumn1.nombre
+		alumno_class.apaterno.data=alumn1.apaterno
+		alumno_class.email.data=alumn1.email
+	if request.method=='POST':
+		id=request.form.get('id')
+		alumn=Alumnos.query.get_or_404(id)
+		db.session.delete(alumn)
+		db.session.commit()
+		return redirect(url_for('index'))
+	return render_template("eliminar.html", form=alumno_class)
 	
 @app.errorhandler(404)
 def page_not_fount(e):
