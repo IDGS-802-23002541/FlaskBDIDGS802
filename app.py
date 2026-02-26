@@ -27,7 +27,7 @@ def alumnos():
 	alumno_class=forms.UserForm(request.form)
 	if request.method=='POST':
 		alum=Alumnos(nombre=alumno_class.nombre.data,
-			   apaterno=alumno_class.apaterno.data,
+			   apellidos=alumno_class.apaterno.data,
 			   email=alumno_class.email.data)
 		db.session.add(alum)
 		db.session.commit()
@@ -41,9 +41,10 @@ def detalles():
 		id=request.args.get('id')
 		alumn1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
 		nombre=alumn1.nombre
-		apaterno=alumn1.apaterno
+		apellidos=alumn1.apellidos
 		email=alumn1.email
-	return render_template("detalles.html", nombre=nombre, apaterno=apaterno, email=email)
+		telefono=alumn1.telefono
+	return render_template("detalles.html", nombre=nombre, apellidos=apellidos, email=email, telefono=telefono)
 
 @app.route('/modificar', methods=['GET', 'POST'])
 def modificar():
@@ -53,15 +54,17 @@ def modificar():
 		alumn1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
 		alumno_class.id.data=request.args.get('id')
 		alumno_class.nombre.data=alumn1.nombre
-		alumno_class.apaterno.data=alumn1.apaterno
+		alumno_class.apellidos.data=alumn1.apellidos
 		alumno_class.email.data=alumn1.email
+		alumno_class.telefono.data=alumn1.telefono
 	if request.method=='POST':
 		id=alumno_class.id.data
 		alumn=db.session.query(Alumnos).filter(Alumnos.id==id).first()
 		alumn.id=id
 		alumn.nombre=str.rstrip(alumno_class.nombre.data)
-		alumn.apaterno=alumno_class.apaterno.data
+		alumn.apellidos=alumno_class.apellidos.data
 		alumn.email=alumno_class.email.data
+		alumn.telefono=alumno_class.telefono.data
 		db.session.add(alumn)
 		db.session.commit()
 		return redirect(url_for('index'))
@@ -75,8 +78,9 @@ def eliminar():
 		alumn1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
 		alumno_class.id.data=request.args.get('id')
 		alumno_class.nombre.data=alumn1.nombre
-		alumno_class.apaterno.data=alumn1.apaterno
+		alumno_class.apellidos.data=alumn1.apellidos
 		alumno_class.email.data=alumn1.email
+		alumno_class.telefono.data=alumn1.telefono
 	if request.method=='POST':
 		id=request.form.get('id')
 		alumn=Alumnos.query.get_or_404(id)
