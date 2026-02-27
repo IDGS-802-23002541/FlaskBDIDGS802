@@ -4,6 +4,7 @@ from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig
 from flask import g
 from flask_migrate import Migrate
+from maestros.routes import maestros_bp
 import forms
 
 from models import db
@@ -11,18 +12,19 @@ from models import Alumnos
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
+app.register_blueprint(maestros_bp)
 db.init_app(app)
 csrf=CSRFProtect()
 migrate=Migrate(app, db)
 
 @app.route("/", methods=['POST', 'GET'])
-@app.route("/index")
+@app.route("/alumnos")
 def index():
 	create_form=forms.UserForm(request.form)
 	alumno=Alumnos.query.all()
-	return render_template("index.html", form=create_form, alumno=alumno)
+	return render_template("alumnos.html", form=create_form, alumno=alumno)
 
-@app.route('/alumnos', methods=['GET', 'POST'])
+@app.route('/insertar', methods=['GET', 'POST'])
 def alumnos():
 	alumno_class=forms.UserForm(request.form)
 	if request.method=='POST':
@@ -32,7 +34,7 @@ def alumnos():
 		db.session.add(alum)
 		db.session.commit()
 		return redirect(url_for('index'))
-	return render_template("Alumnos.html", form=alumno_class)
+	return render_template("insertar.html", form=alumno_class)
 
 @app.route('/detalles', methods=['GET', 'POST'])
 def detalles():
