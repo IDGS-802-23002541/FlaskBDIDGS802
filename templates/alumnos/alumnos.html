@@ -5,7 +5,7 @@ macros %}
     class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default"
   >
     <a
-      href="/insertar_maestro"
+      href="/insertar"
       class="text-white bg-success hover:bg-success-strong focus:ring-4 focus:ring-success-medium shadow-xs font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
     >
       Insertar
@@ -15,18 +15,17 @@ macros %}
         class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium"
       >
         <tr>
-          <th scope="col" class="px-6 py-3 font-medium">Matrícula</th>
           <th scope="col" class="px-6 py-3 font-medium">Nombre</th>
           <th scope="col" class="px-6 py-3 font-medium">Apellidos</th>
-          <th scope="col" class="px-6 py-3 font-medium">Especialidad</th>
           <th scope="col" class="px-6 py-3 font-medium">Email</th>
+          <th scope="col" class="px-6 py-3 font-medium">Telefono</th>
           <th scope="col" class="px-6 py-3 font-medium">Editar</th>
           <th scope="col" class="px-6 py-3 font-medium">Detalles</th>
           <th scope="col" class="px-6 py-3 font-medium">Eliminar</th>
         </tr>
       </thead>
       <tbody>
-        {% for mae in maestro%}
+        {% for alum in alumno%}
         <tr
           class="bg-neutral-primary-soft border-b border-default hover:bg-neutral-secondary-medium"
         >
@@ -34,15 +33,14 @@ macros %}
             scope="row"
             class="px-6 py-4 font-medium text-heading whitespace-nowrap"
           >
-            {{mae.matricula}}
+            {{alum.nombre}}
           </th>
-          <td class="px-6 py-4">{{mae.nombre}}</td>
-          <td class="px-6 py-4">{{mae.apellidos}}</td>
-          <td class="px-6 py-4">{{mae.especialidad}}</td>
-          <td class="px-6 py-4">{{mae.email}}</td>
+          <td class="px-6 py-4">{{alum.apellidos}}</td>
+          <td class="px-6 py-4">{{alum.email}}</td>
+          <td class="px-6 py-4">{{alum.telefono}}</td>
           <td class="px-6 py-4 text-right">
             <a
-              href="modificar_maestro?mat={{mae.matricula}}"
+              href="modificar?id={{alum.id}}"
               type="button"
               class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
             >
@@ -51,7 +49,7 @@ macros %}
           </td>
           <td class="px-6 py-4">
             <a
-              href="detalles_maestro?mat={{mae.matricula}}"
+              href="detalles?id={{alum.id}}"
               type="button"
               class="text-white bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-yellow-300 dark:focus:ring-yellow-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
             >
@@ -61,7 +59,7 @@ macros %}
           <td class="px-6 py-4">
             <a
               type="button"
-              href="eliminar_maestro?mat={{mae.matricula}}"
+              href="eliminar?id={{alum.id}}"
               class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
             >
               Eliminar
@@ -72,6 +70,7 @@ macros %}
       </tbody>
     </table>
   </div>
+
   <div class="flex justify-center mt-8">
     <a
       href="/"
@@ -85,5 +84,4 @@ macros %}
     </a>
   </div>
 </div>
-
 {% endblock %}

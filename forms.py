@@ -1,5 +1,5 @@
 from wtforms import Form
-from wtforms import StringField, IntegerField, validators
+from wtforms import StringField, IntegerField, validators, DateField
 
 class UserForm(Form):
     id=StringField('id', [
@@ -39,3 +39,24 @@ class MaestrosForm(Form):
         validators.Email(message="Ingrese un correo válido")
     ])
     
+class CursoForm(Form):
+    id=StringField('id', [
+        validators.DataRequired(message="El campo es requerido"),
+        validators.length(min=3, max=10, message="Ingrese un nombre válido")
+    ])
+    nombre=StringField('Nombre', [
+        validators.DataRequired(message="El campo es requerido"),
+        validators.length(min=3, max=10, message="Ingrese un nombre válido")
+    ])
+    descripcion=StringField('Descripción', [
+        validators.DataRequired(message="El campo es requerido")
+    ])
+
+class Inscripcion(Form):
+    id=StringField('id', [
+        validators.DataRequired(message="El campo es requerido"),
+        validators.length(min=3, max=10, message="Ingrese un nombre válido")
+    ])
+    fecha_inscripcion=DateField('Fecha inscripción', [
+        validators.DataRequired(message="El campo es requerido")
+    ])

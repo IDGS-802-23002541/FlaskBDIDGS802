@@ -1,0 +1,50 @@
+{% extends "layout.html" %} {% block container %} {% import "_macros.html" as
+macros %}
+
+<form class="max-w-md mx-auto" action="/insertar" method="POST" novalidate>
+  {{form.csrf_token}}
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+  <div class="relative z-0 w-full mb-5 group">
+    {{macros.campoNuevo(form.id, class='block py-2.5 px-0 w-full text-sm
+    text-heading bg-transparent border-0 border-b-2 border-default-medium
+    appearance-none focus:outline-none focus:ring-0 focus:border-brand peer')}}
+  </div>
+  <div class="grid md:grid-cols-2 md:gap-6">
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.nombre, class='block py-2.5 px-0 w-full text-sm
+      text-heading bg-transparent border-0 border-b-2 border-default-medium
+      appearance-none focus:outline-none focus:ring-0 focus:border-brand
+      peer')}}
+    </div>
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.descripcion, class='block py-2.5 px-0 w-full
+      text-sm text-heading bg-transparent border-0 border-b-2
+      border-default-medium appearance-none focus:outline-none focus:ring-0
+      focus:border-brand peer')}}
+    </div>
+  </div>
+  <div class="grid md:grid-cols-2 md:gap-6">
+    <div class="relative z-0 w-full mb-5 group">
+      {{macros.campoNuevo(form.maestro_id, class='block py-2.5 px-0 w-full
+      text-sm text-heading bg-transparent border-0 border-b-2
+      border-default-medium appearance-none focus:outline-none focus:ring-0
+      focus:border-brand peer')}}
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
+  >
+    Registrar
+  </button>
+  <a
+    type="button"
+    href="/cursos"
+    class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
+  >
+    Regresar
+  </a>
+</form>
+
+{% endblock %}

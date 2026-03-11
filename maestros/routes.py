@@ -8,8 +8,7 @@ import forms
 
 
 # Creamos la rutas con maestro en vez de app
-@maestros_bp.route("/", methods=['POST', 'GET'])
-@maestros_bp.route("/maestros")
+@maestros_bp.route("/maestros", methods=['POST', 'GET'])
 def maestros():
 	create_form=forms.MaestrosForm(request.form)
 	maestro=Maestros.query.all()
