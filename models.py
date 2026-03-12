@@ -69,6 +69,8 @@ class Inscripcion(db.Model):
         db.DateTime,
         server_default=db.func.now()
     )
+    alumno = db.relationship('Alumnos')
+    curso = db.relationship('Curso')
     __table_args__=(
         db.UniqueConstraint('alumno_id', 'curso_id', name='uq_alumno_curso'),
     )

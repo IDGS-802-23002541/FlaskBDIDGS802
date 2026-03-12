@@ -1,55 +1,76 @@
-{% extends "layout.html" %}
-{% block container %}
-{% import "_macros.html" as macros %}
+{% extends "layout.html" %} {% block container %} {% import "_macros.html" as
+macros %}
 
-<div class="py-10 relative overflow-x-auto sm:rounded-lg">
+<form
+  class="max-w-md mx-auto"
+  action="/eliminar_inscripciones"
+  method="POST"
+  novalidate
+>
+  {{form.csrf_token}}
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
 
-    <form action="{{ url_for('inscripciones.inscripcionEliminar', alumno_id=alumno.id, curso_id=curso.id) }}" 
-        method="POST" class="max-w-md mx-auto">
-        
-        {{ form.csrf_token }}
+  <div class="relative z-0 w-full mb-5 group">
+    {{macros.campoNuevo(form.id, class='block py-2.5 px-0 w-full text-sm
+    text-heading bg-transparent border-0 border-b-2 border-default-medium
+    appearance-none focus:outline-none focus:ring-0 focus:border-brand peer')}}
+  </div>
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+  <div class="grid md:grid-cols-2 md:gap-6">
+    <label for="curso_id" class="block text-sm font-bold text-gray-700 mb-2"
+      >Curso</label
+    >
+    <select
+      name="curso_id"
+      id="curso_id"
+      required
+      class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+    >
+      {% for curso in cursos %}
+      <!-- prettier-ignore -->
+      <option value="{{curso.id}}" {% if form.curso_id.data == curso.id %}selected{% endif %}>
+        {{ curso.nombre }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="grid md:grid-cols-2 md:gap-6">
+    <label for="alumn_id" class="block text-sm font-bold text-gray-700 mb-2"
+      >Alumno</label
+    >
+    <select
+      name="alumno_id"
+      id="alumno_id"
+      required
+      class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+    >
+      {% for alumno in alumnos %}
+      <!-- prettier-ignore -->
+      <option value="{{ alumno.id }}" {% if form.alumno_id.data == alumno.id %}selected{% endif %}>
+        {{ alumno.nombre }} {{ alumno.apellidos }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="relative z-0 w-full mb-5 group">
+    {{macros.campoNuevo(form.fecha_inscripcion, class='block py-2.5 px-0 w-full
+    text-sm text-heading bg-transparent border-0 border-b-2
+    border-default-medium appearance-none focus:outline-none focus:ring-0
+    focus:border-brand peer')}}
+  </div>
+  <button
+    type="submit"
+    class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
+  >
+    Eliminar
+  </button>
+  <a
+    type="button"
+    href="/inscripciones"
+    class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
+  >
+    Regresar
+  </a>
+</form>
 
-        <h1 class="text-2xl font-bold text-heading mb-8 text-center">
-            Eliminar Inscripción
-        </h1>
-
-        <div class="relative z-0 w-full mb-6 group">
-            <label class="block text-xs text-gray-400 uppercase font-bold">Alumno</label>
-            <input type="text" value="{{ alumno.nombre }} {{ alumno.apaterno }}" 
-                class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium" 
-                readonly>
-        </div>
-
-        <div class="relative z-0 w-full mb-6 group">
-            <label class="block text-xs text-gray-400 uppercase font-bold">Materia / Curso</label>
-            <input type="text" value="{{ curso.nombre }}" 
-                class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium" 
-                readonly>
-        </div>
-
-        <div class="relative z-0 w-full mb-6 group">
-            <label class="block text-xs text-gray-400 uppercase font-bold">Maestro Titular</label>
-            <input type="text" value="{{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}" 
-                class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium" 
-                readonly>
-        </div>
-
-        <div class="mb-6">
-            <p class="text-sm text-center text-red-500 italic">
-                ¿Estás seguro de que deseas dar de baja a este alumno?
-            </p>
-        </div>
-
-        <button type="submit"
-            class="w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition-all duration-200">
-            Confirmar Baja (Eliminar)
-        </button>
-        
-        <div class="mt-4 text-center">
-            <a href="{{ url_for('inscripciones.inscripcionesTabla') }}" class="text-sm text-gray-500 hover:underline">
-                Cancelar y regresar
-            </a>
-        </div>
-    </form>
-</div>
 {% endblock %}

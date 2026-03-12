@@ -40,7 +40,8 @@ def detalles():
 		nombre=curso1.nombre
 		descripcion=curso1.descripcion
 		maestro_id=curso1.maestro.nombre + " " + curso1.maestro.apellidos
-	return render_template("cursos/detalles_curso.html", nombre=nombre, descripcion=descripcion, maestro_id=maestro_id)
+		alumnos=curso1.alumnos
+	return render_template("cursos/detalles_curso.html", nombre=nombre, descripcion=descripcion, maestro_id=maestro_id, alumnos=alumnos)
 
 @curso_bp.route('/modificar_curso', methods=['GET', 'POST'])
 def modificar():

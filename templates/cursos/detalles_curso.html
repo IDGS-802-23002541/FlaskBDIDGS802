@@ -12,6 +12,14 @@
   </a>
   <p class="mb-6 text-body">{{descripcion}}</p>
   <p class="mb-6 text-body">{{maestro_id}}</p>
+  <p><b>Alumnos inscritos:</b></p>
+  <ul class="text-blue-500">
+    {% for alumno in alumnos %}
+    <li>{{ alumno.nombre }} {{ alumno.apellidos }}</li>
+    {% else %}
+    <li>No hay alumnos inscritos</li>
+    {% endfor %}
+  </ul>
   <a
     href="/cursos"
     class="inline-flex items-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"

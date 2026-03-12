@@ -1,38 +1,65 @@
-{% extends "layout.html" %}
-{% block container %}
+{% extends "layout.html" %} {% block container %} {% import "_macros.html" as
+macros %}
 
-<div class="py-10 max-w-2xl mx-auto px-4">
-    <h2 class="text-3xl font-extrabold text-gray-900 mb-8 text-center">Nueva Inscripción</h2>
-    
-    <div class="bg-white border border-gray-200 rounded-xl shadow-lg p-8">
-        <form action="{{ url_for('inscripciones.inscripcionNueva') }}" method="POST" class="space-y-6">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<form
+  class="max-w-md mx-auto"
+  action="/insertar_inscripciones"
+  method="POST"
+  novalidate
+>
+  {{form.csrf_token}}
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+  <div class="grid md:grid-cols-2 md:gap-6">
+    <label for="curso_id" class="block text-sm font-bold text-gray-700 mb-2"
+      >Cursor</label
+    >
+    <select
+      name="curso_id"
+      id="curso_id"
+      required
+      class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+    >
+      <option value="" disabled selected>Seleccione un curso...</option>
+      {% for curso in cursos %}
+      <option value="{{ curso.id }}">
+        {{ curso.nombre }} | {{ curso.maestro.nombre }} {{
+        curso.maestro.apellidos }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="grid md:grid-cols-2 md:gap-6">
+    <label for="alumn_id" class="block text-sm font-bold text-gray-700 mb-2"
+      >Alumno</label
+    >
+    <select
+      name="alumno_id"
+      id="alumno_id"
+      required
+      class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white"
+    >
+      <option value="" disabled selected>Seleccione un alumno...</option>
+      {% for alumno in alumnos %}
+      <option value="{{ alumno.id }}">
+        {{ alumno.nombre }} {{ alumno.apellidos }}
+      </option>
+      {% endfor %}
+    </select>
+  </div>
 
-            <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2">Alumno</label>
-                <select name="alumno_id" class="w-full px-4 py-2 border rounded-lg" required>
-                    <option value="" disabled selected>Seleccione un alumno...</option>
-                    {% for alumno in alumnos %}
-                        <option value="{{ alumno.id }}">{{ alumno.nombre }} {{ alumno.apaterno }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2">Curso</label>
-                <select name="curso_id" class="w-full px-4 py-2 border rounded-lg" required>
-                    <option value="" disabled selected>Seleccione la materia...</option>
-                    {% for curso in cursos %}
-                        <option value="{{ curso.id }}">{{ curso.nombre }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <button type="submit" class="text-red-500 hover:text-red-700 text-xs font-bold uppercase">
-                Inscribir Alumno
-            </button>
-        </form>
-    </div>
-</div>
+  <button
+    type="submit"
+    class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
+  >
+    Registrar
+  </button>
+  <a
+    type="button"
+    href="/inscripciones"
+    class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5"
+  >
+    Regresar
+  </a>
+</form>
 
 {% endblock %}

@@ -12,6 +12,18 @@
   </a>
   <p class="mb-6 text-body">{{email}}</p>
   <p class="mb-6 text-body">+52 {{telefono}}</p>
+  <p><b>Cursos inscritos:</b></p>
+
+  <ul>
+    {% for curso in cursos %}
+    <li>
+      {{ curso.nombre }} - {{ curso.maestro.nombre }} {{ curso.maestro.apellidos
+      }}
+    </li>
+    {% else %}
+    <li>No está inscrito en ningún curso</li>
+    {% endfor %}
+  </ul>
   <a
     href="/alumnos"
     class="inline-flex items-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"

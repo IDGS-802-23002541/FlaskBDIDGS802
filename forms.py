@@ -60,7 +60,7 @@ class InscripcionForm(Form):
         validators.DataRequired(message="El campo es requerido"),
         validators.length(min=3, max=10, message="Ingrese un nombre válido")
     ])
-    maestro_id=StringField('Maestro', [
+    curso_id=StringField('Curso', [
         validators.DataRequired(message="El campo es requerido")
     ])
     alumno_id=StringField('Alumno', [

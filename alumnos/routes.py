@@ -35,7 +35,8 @@ def detalles():
 		apellidos=alumn1.apellidos
 		email=alumn1.email
 		telefono=alumn1.telefono
-	return render_template("alumnos/detalles.html", nombre=nombre, apellidos=apellidos, email=email, telefono=telefono)
+		cursos=alumn1.cursos
+	return render_template("alumnos/detalles.html", nombre=nombre, apellidos=apellidos, email=email, telefono=telefono, cursos=cursos)
 
 @alumnos_bp.route('/modificar', methods=['GET', 'POST'])
 def modificar():
