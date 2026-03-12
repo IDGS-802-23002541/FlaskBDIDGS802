@@ -51,11 +51,20 @@ class CursoForm(Form):
     descripcion=StringField('Descripción', [
         validators.DataRequired(message="El campo es requerido")
     ])
+    maestro_id=StringField('Maestro', [
+        validators.DataRequired(message="El campo es requerido")
+    ])
 
-class Inscripcion(Form):
+class InscripcionForm(Form):
     id=StringField('id', [
         validators.DataRequired(message="El campo es requerido"),
         validators.length(min=3, max=10, message="Ingrese un nombre válido")
+    ])
+    maestro_id=StringField('Maestro', [
+        validators.DataRequired(message="El campo es requerido")
+    ])
+    alumno_id=StringField('Alumno', [
+        validators.DataRequired(message="El campo es requerido")
     ])
     fecha_inscripcion=DateField('Fecha inscripción', [
         validators.DataRequired(message="El campo es requerido")

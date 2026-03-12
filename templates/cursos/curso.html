@@ -5,7 +5,7 @@ macros %}
     class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default"
   >
     <a
-      href="/insertar"
+      href="/insertar_curso"
       class="text-white bg-success hover:bg-success-strong focus:ring-4 focus:ring-success-medium shadow-xs font-medium leading-5 text-sm px-4 py-2.5 focus:outline-none"
     >
       Insertar
@@ -18,7 +18,7 @@ macros %}
           <th scope="col" class="px-6 py-3 font-medium">ID</th>
           <th scope="col" class="px-6 py-3 font-medium">Nombre</th>
           <th scope="col" class="px-6 py-3 font-medium">Descripcion</th>
-          <th scope="col" class="px-6 py-3 font-medium">Maestro ID</th>
+          <th scope="col" class="px-6 py-3 font-medium">Maestro</th>
           <th scope="col" class="px-6 py-3 font-medium">Editar</th>
           <th scope="col" class="px-6 py-3 font-medium">Detalles</th>
           <th scope="col" class="px-6 py-3 font-medium">Eliminar</th>
@@ -37,7 +37,12 @@ macros %}
           </th>
           <td class="px-6 py-4">{{curso.nombre}}</td>
           <td class="px-6 py-4">{{curso.descripcion}}</td>
-          <td class="px-6 py-4">{{curso.maestro_id}}</td>
+          {% if curso.maestro %}
+            <td class="px-6 py-4">{{curso.maestro.nombre}} {{curso.maestro.apellidos}}</td>
+          {% else %}
+            <td class="px-6 py-4">No asignado</td>
+          {% endif %}
+          
           <td class="px-6 py-4 text-right">
             <a
               href="modificar_curso?id={{curso.id}}"
